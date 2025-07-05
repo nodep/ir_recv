@@ -52,9 +52,13 @@ uint8_t get_pressed_key(void)
 			TIFR1 = _BV(TOV1);
 		}
 		
-		pressed_key = get_panasonic_key(ir_pin_state, duration);
-		if (pressed_key == KC_NO) {
-			pressed_key = get_samsung_key(ir_pin_state, duration);
+		uint8_t new_key = get_panasonic_key(ir_pin_state, duration);
+		if (new_key == KC_NO) {
+			new_key = get_samsung_key(ir_pin_state, duration);
+		}
+
+		if (new_key != KC_NO) {
+			pressed_key = new_key;
 		}
 
 		ir_prev_pin_state = ir_pin_state;
