@@ -29,8 +29,10 @@
 #define SAMSUNG_RAKUTEN_TV		0xe0e03dc2
 #define SAMSUNG_VOLUME_DOWN		0xe0e0d02f
 #define SAMSUNG_VOLUME_UP		0xe0e0e01f
+#define SAMSUNG_VOLUME_MUTE		0xe0e0f00f
 #define SAMSUNG_CHANNEL_DOWN	0xe0e008f7
 #define SAMSUNG_CHANNEL_UP		0xe0e048b7
+#define SAMSUNG_GUIDE			0xe0e0f20d	// the button on the channel up/down rocker
 
 #define SAMSUNG_COLOR_DOTS_EXTRA 0xe0e0738c
 #define SAMSUNG_WWW				0xe0e0ec13
@@ -112,7 +114,7 @@ uint8_t get_samsung_key(bool is_rising, uint16_t duration) {
 
 	if (decode_signal_samsung(is_rising, duration)) {
 		switch (data) {
-			case SAMSUNG_PRIME_VIDEO:	pressed_key = KC_AUDIO_MUTE;		break;
+			case SAMSUNG_VOLUME_MUTE:	pressed_key = KC_AUDIO_MUTE;		break;
 			case SAMSUNG_VOLUME_DOWN:	pressed_key = KC_AUDIO_VOL_DOWN;	break;
 			case SAMSUNG_VOLUME_UP:		pressed_key = KC_AUDIO_VOL_UP;		break;
 			
@@ -142,12 +144,11 @@ uint8_t get_samsung_key(bool is_rising, uint16_t duration) {
 			case SAMSUNG_RAKUTEN_TV:
 			case SAMSUNG_COLOR_DOTS_EXTRA:
 			case SAMSUNG_WWW:
+			case SAMSUNG_GUIDE:
 				break;
 			default:
 				dprint("0x%08lx\n", data);
 		}
-
-		SetBit(PORT(LED_BLU_PORT), LED_BLU_BIT);
 	}
 
 	return pressed_key;

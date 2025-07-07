@@ -178,8 +178,6 @@ uint8_t get_panasonic_key(bool is_rising, uint16_t duration) {
 			case PANA_PLAY_BACKWARD:	pressed_key = KC_F;			break;
 			case PANA_V_BASS:			pressed_key = KC_F11;		break;
 		}
-
-		SetBit(PORT(LED_BLU_PORT), LED_BLU_BIT);
 	}
 
 	return pressed_key;

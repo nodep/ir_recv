@@ -58,6 +58,7 @@ uint8_t get_pressed_key(void)
 		}
 
 		if (new_key != KC_NO) {
+			SetBit(PORT(LED_BLU_PORT), LED_BLU_BIT);
 			pressed_key = new_key;
 		}
 
